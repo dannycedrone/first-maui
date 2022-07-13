@@ -1,8 +1,7 @@
 name: Post Hello World
 on:
   pull_request:
-    branches: ["master"]
-    types: [closed]
+    types: [opened]
 jobs:
   build:
     name: Post Hello World
