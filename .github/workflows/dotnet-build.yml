@@ -22,8 +22,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build MauiApp1/MauiApp1.csproj -c Release -f:net6.0-windows10.0.19041.0
     - name: Test
       run: dotnet test --no-build --verbosity normal
-    - name: Build
-      run: dotnet build MauiApp1/MauiApp1.csproj -c Release -f:net6.0-windows10.0.19041.0
