@@ -1,6 +1,6 @@
 name: Post hello world
 on:
-  pull_request:
+  pull_request_target:
     types: [opened]
     
 permissions:
