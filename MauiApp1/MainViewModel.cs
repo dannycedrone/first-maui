@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MauiApp1.NewFolder
+namespace MauiApp1
 {
     public class MainViewModel : INotifyPropertyChanged
     {
