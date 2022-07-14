@@ -2,6 +2,14 @@ name: Post hello world
 on:
   pull_request:
     types: [opened]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'  
 jobs:
   build:
     name: Post Hello World
