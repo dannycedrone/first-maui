@@ -2,6 +2,9 @@ name: Post hello world
 on:
   pull_request:
     types: [opened]
+    
+  workflow_dispatch:
+ 
 jobs:
   build:
     name: Post Hello World
