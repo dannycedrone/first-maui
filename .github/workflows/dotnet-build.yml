@@ -31,4 +31,4 @@ jobs:
       uses: actions/upload-artifact@v2.3.1
       with:
         name: windows-ci-build
-        path: MauiApp1/bin/Release/net6.0-windows*/**/MauiApp1*.msix
+        path: MauiApp1/MauiApp1.csproj
