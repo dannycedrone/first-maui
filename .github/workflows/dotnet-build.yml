@@ -17,8 +17,14 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+        vs-prerelease: true
     - name: Install MAUI workload
       run: dotnet workload install maui
+    - name: Restore Dependencies
+      run: dotnet restore MauiApp1/MauiApp1.csproj
     - name: Build
       run: msbuild MauiApp1/MauiApp1.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net6.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true
     - name: Upload Windows Artifact
