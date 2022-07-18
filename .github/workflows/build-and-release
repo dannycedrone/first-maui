@@ -1,0 +1,48 @@
+name: .NET Release
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+        vs-prerelease: true
+    - name: Install MAUI workload
+      run: dotnet workload install maui
+    - name: Restore Dependencies
+      run: dotnet restore MauiApp1/MauiApp1.csproj
+    - name: Build
+      run: msbuild MauiApp1/MauiApp1.csproj -r -p:Configuration=Release -p:RestorePackages=false -p:TargetFramework=net6.0-windows10.0.19041.0 /p:GenerateAppxPackageOnBuild=true
+    - name: Upload Windows Artifact
+      uses: actions/upload-artifact@v2.3.1
+      with:
+        name: windows-ci-build
+        path: MauiApp1/MauiApp1.csproj
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: Test ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+    - name: Upload release asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: windows-ci-build
+          asset_name: MauiApp1.csproj
+          asset_content_type: application/zip         
