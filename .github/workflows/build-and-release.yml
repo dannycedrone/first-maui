@@ -42,7 +42,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: windows-ci-build
-          asset_name: MauiApp1.csproj
-          asset_content_type: application/zip         
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_content_type: application/zip 
+        path: \bin\Release        
