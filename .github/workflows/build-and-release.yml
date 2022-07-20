@@ -28,21 +28,21 @@ jobs:
       uses: actions/upload-artifact@v2.3.1
       with:
         name: windows-ci-build
-        path: bin\Release\net6.0-windows10.0.19041.0\win10-x64\publish
+        path: \bin\Release\net6.0-windows10.0.19041.0\win10-x64\MauiApp1.exe
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: new
-        release_name: new
+        tag_name: ${{ github.run_number }}
+        release_name: ${{ github.run_number }}
     - name: Upload release asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: \
+        asset_path: \bin\Release\net6.0-windows10.0.19041.0\win10-x64\MauiApp1.exe
         asset_name: windows-ci-build
         asset_content_type: application/zip  
